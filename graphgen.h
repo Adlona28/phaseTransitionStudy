@@ -280,3 +280,62 @@ MATR genRandomWeightedDiGraph(int n, int m){
     }
     return graph;
 }
+
+//Models:
+MATR gilbert (int n, double p) {
+	MATR result (n,vector<int>(n));
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			if (not seBorra(p)) { 
+				result[i][j] = true;
+				result[j][i] = true;
+			}
+			else {
+				result[i][j] = false;
+				result[j][i] = false;
+			}
+		}
+	}
+}
+
+
+int calcul(int n, int m) {
+	int val = n*(n-1)/2
+	int rest = val - m;
+	int parcial = 1
+	while (val >= m) {
+		parcial *= val;
+		val = val-1;
+	}
+	while (rest >= 1) {
+		parcial /= rest;
+	}
+	return parcial;
+}
+
+
+MATR erdos (n,m) {
+	MATR result (n,vector<int>(n));
+	double p = 1/calcul(n,m)
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			if (not seBorra(p)) { 
+				result[i][j] = true;
+				result[j][i] = true;
+			}
+			else {
+				result[i][j] = false;
+				result[j][i] = false;
+			}
+		}
+	}
+}
+
+
+
+/*
+Sources:
+https://www.quora.com/How-could-a-random-graph-e-g-Erdos-Renyi-graphs-be-implemented-in-the-C-language-no-C-and-C++
+https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
+https://en.wikipedia.org/wiki/Random_graph
+	
