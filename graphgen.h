@@ -269,7 +269,7 @@ MATR genRandomWeightedDiGraph(int n, int m){
 }
 
 //Models:
-MATR gilbert (int n, double p) {
+MATR gilbert (int n, float p) {
 	MATR result (n,vector<int>(n));
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
