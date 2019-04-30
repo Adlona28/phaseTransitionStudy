@@ -1,10 +1,9 @@
-#ifndef GRAPHGEN_H
-#define GRAPHGEN_H
 
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
 #include <assert.h>
+#include "percolacio.h"
 
 using namespace std;
 
@@ -15,8 +14,7 @@ const uint MAX_WEIGHT = 100;
 //Undirected graphs generacion
 MATR genRandomGraph(){
     int n = (rand() % MAX_NODES) + 1;
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -37,8 +35,7 @@ MATR genRandomGraph(){
 }
 
 MATR genRandomGraph(int n){
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -60,8 +57,7 @@ MATR genRandomGraph(int n){
 
 MATR genRandomGraph(int n, int m){
     assert (m > (n*(n-1))/2);
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -83,8 +79,7 @@ MATR genRandomGraph(int n, int m){
 //Directed graphs generation
 MATR genRandomDiGraph(){
     int n = (rand() % MAX_NODES) + 1;
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -104,8 +99,7 @@ MATR genRandomDiGraph(){
 }
 
 MATR genRandomDiGraph(int n){
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -126,8 +120,7 @@ MATR genRandomDiGraph(int n){
 
 MATR genRandomDiGraph(int n, int m){
     assert (m > (n*(n-1)));
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -149,8 +142,7 @@ MATR genRandomDiGraph(int n, int m){
 //Undirected weighted graphs generation
 MATR genRandomWeightedGraph(){
     int n = (rand() % MAX_NODES) + 1;
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -171,8 +163,7 @@ MATR genRandomWeightedGraph(){
 }
 
 MATR genRandomWeightedGraph(int n){
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -194,8 +185,7 @@ MATR genRandomWeightedGraph(int n){
 
 MATR genRandomWeightedGraph(int n, int m){
     assert (m > (n*(n-1))/2);
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -219,8 +209,7 @@ MATR genRandomWeightedGraph(int n, int m){
 
 MATR genRandomWeightedDiGraph(){
     int n = (rand() % MAX_NODES) + 1;
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -240,8 +229,7 @@ MATR genRandomWeightedDiGraph(){
 }
 
 MATR genRandomWeightedDiGraph(int n){
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -262,8 +250,7 @@ MATR genRandomWeightedDiGraph(int n){
 
 MATR genRandomWeightedDiGraph(int n, int m){
     assert (m > (n*(n-1)));
-    MATR graph;
-    graph.resize(n);
+    MATR graph (n,vector<int>(n));
 
     for (uint i = 0; i < n; i++) {
         graph[n].resize(n, 0);
@@ -287,12 +274,12 @@ MATR gilbert (int n, double p) {
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
 			if (not seBorra(p)) { 
-				result[i][j] = true;
-				result[j][i] = true;
+				result[i][j] = 1;
+				result[j][i] = 1;
 			}
 			else {
-				result[i][j] = false;
-				result[j][i] = false;
+				result[i][j] = 0;
+				result[j][i] = 0;
 			}
 		}
 	}
@@ -300,9 +287,9 @@ MATR gilbert (int n, double p) {
 
 
 int calcul(int n, int m) {
-	int val = n*(n-1)/2
+	int val = n*(n-1)/2;
 	int rest = val - m;
-	int parcial = 1
+	int parcial = 1;
 	while (val >= m) {
 		parcial *= val;
 		val = val-1;
@@ -314,7 +301,7 @@ int calcul(int n, int m) {
 }
 
 
-MATR erdos (n,m) {
+MATR erdos (int n, int m) {
 	MATR result (n,vector<int>(n));
 	double p = 1/calcul(n,m)
 	for (int i = 0; i < n; ++i) {
@@ -338,4 +325,5 @@ Sources:
 https://www.quora.com/How-could-a-random-graph-e-g-Erdos-Renyi-graphs-be-implemented-in-the-C-language-no-C-and-C++
 https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
 https://en.wikipedia.org/wiki/Random_graph
+*/
 	
