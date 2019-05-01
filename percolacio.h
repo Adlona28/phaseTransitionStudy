@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
@@ -11,9 +10,9 @@ bool seBorra(float q){
     return (rand()%1000)<prob;
 }
 
-
+/*
 void percolacionNodos(MATR graph, float q){
-    for (uint i = 0; i < graph.size()) {
+    for (uint i = 0; i < graph.size(); i++) {
         if(seBorra(q)){
             graph.erase(vec.begin() + i);
             for (uint j = 0; j < graph.size(); j++) {
@@ -44,3 +43,4 @@ void percolacionAristasDirigit(MATR graph, float q){
             }
         }
 }
+*/

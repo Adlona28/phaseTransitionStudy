@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
@@ -55,7 +54,7 @@ MATR genRandomGraph(int n){
     return graph;
 }
 
-MATR genRandomGraph(int n, int m){
+MATR genErdos(int n, int m){
     assert (m > (n*(n-1))/2);
     MATR graph (n,vector<int>(n));
 
@@ -283,6 +282,7 @@ MATR gilbert (int n, float p) {
 			}
 		}
 	}
+	return result;
 }
 
 
@@ -303,7 +303,7 @@ int calcul(int n, int m) {
 
 MATR erdos (int n, int m) {
 	MATR result (n,vector<int>(n));
-	double p = 1/calcul(n,m)
+	double p = 1/calcul(n,m);
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
 			if (not seBorra(p)) { 
