@@ -272,7 +272,7 @@ MATR gilbert (int n, float p) {
 	MATR result (n,vector<int>(n));
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
-			if (not seBorra(p)) { 
+			if (i != j and not seBorra((float)((float)1-(float)p))) { 
 				result[i][j] = 1;
 				result[j][i] = 1;
 			}

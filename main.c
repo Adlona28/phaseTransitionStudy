@@ -7,8 +7,8 @@
 using namespace std;
 
 int main() {
-	for (int i = 0; i < 10; ++i)
-		cout << seBorra(1.) << " ";
+	//for (int i = 0; i < 10; ++i)
+		//cout << seBorra(1.) << " ";
 	cout << "Dime el número de vertices que quieres" << endl;
 	int n;
 	cin >> n;
@@ -24,15 +24,26 @@ int main() {
 		MATR gilb = gilbert(n,p);
 		vector<int> top;
 		top.push_back(0);
+		int count = 1;
 		vector<int> bottom;
-		for (int i = 0; i < n and top.size() < 10; i++) {
-			if (gilb[top[0]][i]) top.push_back(i);
+		for (int i = 0; i < n and count < n/10; i++) {
+			if (gilb[top[0]][i]) {
+				top.push_back(i);
+				count++;
+			}
 			else if (i != top[0]) bottom.push_back(i);
 		}
 		if (bottom.size() == 0) bottom.push_back(1);
-		for (int i = 0; i < n and bottom.size() < 10; i++) {
-			if (gilb[bottom[0]][i] and not gilb[top[0]][i]) top.push_back(i);
+		count = bottom.size();
+		for (int i = 0; i < n and count < n/10; i++) {
+			if (gilb[bottom[0]][i] and not gilb[top[0]][i]) {
+				top.push_back(i);
+				count++;
+			}
 		}
+		//for (int i = 0; i < top.size(); ++i) cout << top[i] << " ";
+		//cout << endl;
+		//for (int i = 0; i < bottom.size(); ++i) cout << bottom[i] << " ";
 		cout << g+1 << "th Graph generated..." << endl;
 		for (int q = 0; q <= 1000; q = q+1) {
 			resultats[g][q] = (int) testTopBottom(gilb, (float)((float)q/(float)1000), node == 1, top, bottom);
