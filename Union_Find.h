@@ -15,6 +15,7 @@ class Union_Find {
 	Union_Find(int n);
 	~Union_Find();
 	int find(int i);
+	void delfind(int i);
 	void unir(int q, int p);
 };
 #endif

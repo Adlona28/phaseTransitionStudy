@@ -7,6 +7,8 @@
 using namespace std;
 
 int main() {
+	for (int i = 0; i < 10; ++i)
+		cout << seBorra(1.) << " ";
 	cout << "Dime el número de vertices que quieres" << endl;
 	int n;
 	cin >> n;
@@ -16,28 +18,33 @@ int main() {
 	cout << "Percolación por nodos (1) o por aristas (0)" << endl;
 	int node;
 	cin >> node;
-	MATR resultats(100,vector<int>(1000)); //Matriz de resultados (exito o no
+	MATR resultats(100,vector<int>(1001)); //Matriz de resultados (exito o no)
 	//Generamos 100 grafos aleatorios con la probabilidad de Gilbert dada y, para cada uno, hacemos los test con diferentes probabilidades de percolacion.
-	cout << "Dime los nodos que pertenecen a top terminando en -1" << endl;
-	vector<int> top;
-	int nodo = -2;
-	while (nodo != -1) {
-		cin >> nodo;
-		top.push_back(nodo);
-	}
-	cout << "Dime los nodos que pertenecen a bottom terminando en -1" << endl;
-	vector<int> bottom;
-	nodo = -2;
-	while (nodo != -1) {
-		cin >> nodo;
-		bottom.push_back(nodo);
-	}
-	for (int i = 0; i < 100; ++i) {
+	for (int g = 0; g < 100; ++g) {
 		MATR gilb = gilbert(n,p);
-		cout << i+1 << "st Graph generated..." << endl;
-		for (int q = 0; q <= 1000; q = q+1) {
-			resultats[i][(int) (q*1000.0)] = (int) testTopBottom(gilb, (float)(q/1000), node == 1, top, bottom);
-			cout << "Asignado." << endl;
+		vector<int> top;
+		top.push_back(0);
+		vector<int> bottom;
+		for (int i = 0; i < n and top.size() < 10; i++) {
+			if (gilb[top[0]][i]) top.push_back(i);
+			else if (i != top[0]) bottom.push_back(i);
 		}
+		if (bottom.size() == 0) bottom.push_back(1);
+		for (int i = 0; i < n and bottom.size() < 10; i++) {
+			if (gilb[bottom[0]][i] and not gilb[top[0]][i]) top.push_back(i);
+		}
+		cout << g+1 << "th Graph generated..." << endl;
+		for (int q = 0; q <= 1000; q = q+1) {
+			resultats[g][q] = (int) testTopBottom(gilb, (float)((float)q/(float)1000), node == 1, top, bottom);
+		}
+	}
+	vector<float> mean(1000);
+	for (int q = 0; q <= 1000; q = q+1) {
+		mean[q] = 0.;
+		for (int i = 0; i < 100; ++i) {
+			mean[q] += (float) resultats[i][q];
+		}
+		mean[q] = (float) mean[q] / 100;
+		cout << (float) q/1000 << ": " << mean[q] <<  endl;
 	}
 }

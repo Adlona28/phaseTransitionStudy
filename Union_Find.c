@@ -12,6 +12,7 @@ Union_Find::Union_Find(int n) {
 }
 
 int Union_Find::find(int i) {
+	 if (id[i] == -1) return -1;
 	 while (i != id[i])
 	 {
 		id[i] = id[id[i]];
@@ -20,6 +21,9 @@ int Union_Find::find(int i) {
 	 return i;
 }
 
+void Union_Find::delfind(int i) {
+	id[i] = -1;
+}
 
 void Union_Find::unir(int q, int p) { 
 	int i = find(p);
