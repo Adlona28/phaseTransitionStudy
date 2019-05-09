@@ -56,7 +56,7 @@ void Union(struct subset subsets[], int x, int y)
 }
 
 
-bool percolar(float prob) {
+bool percolarVertices(float prob) {
 	//q=probabilidad de abrir un nodo
 	q=prob;
 	q=1-q; //1-q de cerrarlo
@@ -155,29 +155,122 @@ bool percolar(float prob) {
 
    	if(!percola) cout << "No percola para " << 1-q << endl;
    	return false;
-
-
-
-
-
 }
 
-int main(){
+
+
+bool percolarAristas(float prob) {
+	//q=probabilidad de abrir un nodo
+	q=prob;
+	q=1-q; //1-q de cerrarlo
+
+	int N=1000;
+
+	 // Allocate memory for creating V sets
+	int V=N*N+2;
+    struct subset *subsets = (struct subset*) malloc(V* sizeof(struct subset) );
+
+    int k = 0;
+
+	for(int i=0; i<N;++i){
+		for(int j=0;j<N;++j){
+    		//inicialización estructura subsets de Union-Find
+    		subsets[k].parent = k;
+    		subsets[k].rank = 0;
+    		subsets[k].posGraella=make_pair(i,j);
+    		subsets[k].abierto=true; //al principio todos los nodos estan abiertos, vamos a decidir las conexiones de aristas
+
+    		++k;
+		}
+	}
+
+
+   	//establezco un top y un bottom virtuales
+   	subsets[V-1].parent=V-1;  //top
+   	subsets[V-1].rank=0;
+   	subsets[V-1].abierto=true;
+
+   	subsets[V-2].parent=V-2; //bottom
+   	subsets[V-2].rank=0;
+   	subsets[V-2].abierto=true;
+
+   	int aux=N*N;
+   	for(int i=0;i<N;++i){//i recorre primera fila
+   		--aux; //recorre ultima fila
+   		//todos se conectan con el vértice ficticio ya que son aristas ficticias
+   		Union(subsets,i,V-1);//top
+   		Union(subsets,aux,V-2);//bottom
+   	}
+
+   	/**
+   	for(int i=0;i<N*N+2;++i){
+   		cout << "Representante de " << i << " " << find(subsets,i) << " " << subsets[i].abierto << endl;
+   	}
+   	*/
+   	
+   	
+
+   	//comienza la percolación de lo que queda de tablero sin contar la fila inicial y la última
+
+   	bool percola=false;
+
+   	//ahora recorro todos
+   	for(int i=0;i<(N*N);++i){
+   		if(find(subsets,V-1)==find(subsets,V-2)){
+   			cout << "Percola para " << 1-q << endl;
+   			percola=true;
+   			return true;
+   			break;
+   		}
+
+   			int auxi=subsets[i].posGraella.first;
+   			int auxj=subsets[i].posGraella.second;
+   			//cout << "Su posicion es " << auxi << " , " << auxj << endl;
+   			//arriba, posicion permitida? siempre que no se borre
+   			if(auxi-1>=0 && !seBorra()){
+   				Union(subsets,i,i-N);
+   			}
+
+   			//abajo
+   			if(auxi+1<=N-1 && !seBorra()){
+   				Union(subsets,i,i+N);
+   			}
+
+   			//izquierda
+   			if(auxj-1>=0 && !seBorra()){
+   				Union(subsets,i,i-1);
+   			}
+
+   			//derecha
+   			if(auxj+1<=N && !seBorra()){
+   				Union(subsets,i,i+1);
+   			}
+ 
+   	}
+
+
+   	if(!percola) cout << "No percola para " << 1-q << endl;
+   	return false;
+}
+
+
+
+void mainVertices(){
 	float q = 0;
 	while(q<=1){
 		q+=0.1;
-		if(percolar(q)){
+		if(percolarVertices(q)){
 			float qnext=q;
 			q-=0.1;
 			while(q<qnext){
 				q+=0.01;
-				if(percolar(q)){
+				if(percolarVertices(q)){
 					float qnext2=q;
 					q-=0.01;
 					while(q<qnext2){
 						q+=0.001;
-						if(percolar(q)){
-							cout << "Valor de transcision de fase para percolacion " << q << endl;
+						if(percolarVertices(q)){
+							cout << "Valor de transcision de fase por percolacion vertices " << q << endl;
 							exit(0);
 						}
 					}
@@ -186,3 +279,134 @@ int main(){
 		}
 	}
 }
+
+void mainAristas(){
+	float q = 0;
+	while(q<=1){
+		q+=0.1;
+		if(percolarAristas(q)){
+			float qnext=q;
+			q-=0.1;
+			while(q<qnext){
+				q+=0.01;
+				if(percolarAristas(q)){
+					float qnext2=q;
+					q-=0.01;
+					while(q<qnext2){
+						q+=0.001;
+						if(percolarAristas(q)){
+							cout << "Valor de transcision de fase por percolacion aristas " << q << endl;
+							exit(0);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void monteCarloVertices() {
+
+	int N=1000; //tiene que ser suficientemente larga para que de el valor del pdf
+
+	 // Allocate memory for creating V sets
+	int V=N*N+2;
+    struct subset *subsets = (struct subset*) malloc(V* sizeof(struct subset) );
+
+    int k = 0;
+
+	for(int i=0; i<N;++i){
+		for(int j=0;j<N;++j){
+    		//inicialización estructura subsets de Union-Find
+    		subsets[k].parent = k;
+    		subsets[k].rank = 0;
+    		subsets[k].posGraella=make_pair(i,j);
+    		subsets[k].abierto=false; //al principio todos los nodos cerrados
+
+    		++k;
+		}
+	}
+
+
+   	//establezco un top y un bottom virtuales
+   	subsets[V-1].parent=V-1;  //top
+   	subsets[V-1].rank=0;
+   	subsets[V-1].abierto=true;
+
+   	subsets[V-2].parent=V-2; //bottom
+   	subsets[V-2].rank=0;
+   	subsets[V-2].abierto=true;
+
+   	int abiertos = 0; 
+   	for(int i=0;i<N;++i){//i recorre primera fila
+   		int index = rand() % N; // pick a random index
+
+   		Union(subsets,index,V-1);//top
+   		if(!subsets[index].abierto){
+   			subsets[index].abierto=true;
+   			++abiertos;
+   		}
+
+   		index = rand() % N;
+   		Union(subsets,(N*N)-index,V-2);//bottom
+   		if(!subsets[(N*N)-index].abierto){
+	   		subsets[(N*N)-index].abierto=true;
+	   		++abiertos;
+	   	}
+   	}
+
+   	/**
+ 
+   	for(int i=0;i<N*N+2;++i){
+   		cout << "Representante de " << i << " " << find(subsets,i) << " " << subsets[i].abierto << endl;
+   	}
+   	*/
+   	
+
+   	//comienza la percolación de lo que queda de tablero sin contar la fila inicial y la última
+
+   	int size=N*N;
+
+   	while (find(subsets,V-1)!=find(subsets,V-2)){
+   			int index = rand() % size;
+   			//cout << "Abrimos el nodo " << i << endl;
+   			if(!subsets[index].abierto==true){
+	   			subsets[index].abierto=true;
+	   			++abiertos;
+
+	   			int auxi=subsets[index].posGraella.first;
+	   			int auxj=subsets[index].posGraella.second;
+	   			//cout << "Su posicion es " << auxi << " , " << auxj << endl;
+	   			//arriba
+	   			if(auxi-1>=0 && subsets[index-N].abierto){
+	   				Union(subsets,index,index-N);
+	   			}
+
+	   			//abajo
+	   			if(auxi+1<=N-1 && subsets[index+N].abierto){
+	   				Union(subsets,index,index+N);
+	   			}
+
+	   			//izquierda
+	   			if(auxj-1>=0 && subsets[index-1].abierto){
+	   				Union(subsets,index,index-1);
+	   			}
+
+	   			//derecha
+	   			if(auxj+1<=N && subsets[index+1].abierto){
+	   				Union(subsets,index,index+1);
+	   			}
+
+	   			
+	   		}
+   	}
+   	cout<< abiertos << endl;
+   	float valor = (float)abiertos / (float)size;
+   	cout << "Percola para " << valor << endl;
+
+}
+
+int main(){
+	monteCarloVertices();
+}
+
