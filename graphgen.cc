@@ -11,8 +11,9 @@ const uint MAX_NODES = 1000;
 const uint MAX_WEIGHT = 100;
 
 //Undirected graphs generacion
-MATR genRandomGraph(){
-    int n = (rand() % MAX_NODES) + 1;
+MATR genUniform(){
+    //int n = (rand() % MAX_NODES) + 50;
+    int n = 100;
     MATR graph (n,vector<int>(n));
 
     for (int i = 0; i < n; i++) {

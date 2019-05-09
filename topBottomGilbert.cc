@@ -33,11 +33,16 @@ int main() {
 			}
 			else if (i != top[0]) bottom.push_back(i);
 		}
-		if (bottom.size() == 0) bottom.push_back(1);
+		if (bottom.size() == 0) {
+			int i = 1; 
+			while (gilb[top[0]][i] and i < n) i++;
+			if (i < n) bottom.push_back(i);
+			else bottom.push_back(n/4);
+		}
 		count = bottom.size();
 		for (int i = 0; i < n and count < n/10; i++) {
-			if (gilb[bottom[0]][i] and not gilb[top[0]][i]) {
-				top.push_back(i);
+			if (gilb[bottom[0]][i] and not gilb[top[0]][i] and i != top[0]) {
+				bottom.push_back(i);
 				count++;
 			}
 		}
