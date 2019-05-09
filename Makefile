@@ -1,19 +1,13 @@
-TARGETS  = main
-TestFase.exe: Union_Find.o percolacio.o properties.o graphgen.o main.o 
-	g++ -o TestFase.exe main.o Union_Find.o
-	rm *.o *.gch
-main.o: main.c
-	g++ -c main.c
-percolacio.o: percolacio.h
-	g++ -c percolacio.h
-properties.o: properties.c 
-	g++ -c properties.c
-graphgen.o: graphgen.h
-	g++ -c graphgen.h
-Union_Find.o: Union_Find.c Union_Find.h
-	g++ -c Union_Find.c
+CC              = g++
+CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
+
+all: euler topBottom
+
+euler: mainEuler.cc unionFind.cc unionFind.hh
+	$(CC) $(CFLAGS) mainEuler.cc unionFind.cc unionFind.hh -o euler
+topBottom: mainTopBottom.cc unionFind.cc unionFind.hh
+	$(CC) $(CFLAGS) mainTopBottom.cc unionFind.cc unionFind.hh -o topBottom
 
 clean:
-	rm *.o
-	rm *.exe
-	rm *.gch
+	rm euler
+	rm topBottom
