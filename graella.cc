@@ -226,19 +226,10 @@ bool percolarAristas(float prob) {
    			int auxi=subsets[i].posGraella.first;
    			int auxj=subsets[i].posGraella.second;
    			//cout << "Su posicion es " << auxi << " , " << auxj << endl;
-   			//arriba, posicion permitida? siempre que no se borre
-   			if(auxi-1>=0 && !seBorra()){
-   				Union(subsets,i,i-N);
-   			}
-
-   			//abajo
+   
+   			//abajo posicion permitida? siempre que no se borre
    			if(auxi+1<=N-1 && !seBorra()){
    				Union(subsets,i,i+N);
-   			}
-
-   			//izquierda
-   			if(auxj-1>=0 && !seBorra()){
-   				Union(subsets,i,i-1);
    			}
 
    			//derecha
@@ -407,6 +398,5 @@ void monteCarloVertices() {
 }
 
 int main(){
-	monteCarloVertices();
+	mainAristas();
 }
-
