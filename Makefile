@@ -1,13 +1,15 @@
 CC              = g++
 CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
 
-all: euler topBottomGilbert topBottomUniform
+all: eulerGilbert eulerUniform topBottomGilbert topBottomUniform
 
-euler: mainEuler.cc unionFind.cc unionFind.hh
-	$(CC) $(CFLAGS) mainEuler.cc unionFind.cc unionFind.hh -o euler
-topBottomGilbert: topBottomGilbert.cc unionFind.cc unionFind.hh
+eulerUniform: mainEulerUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) mainEulerUniform.cc unionFind.cc unionFind.hh -o eulerUniform
+eulerGilbert: mainEulerGilbert.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) mainEulerGilbert.cc unionFind.cc unionFind.hh -o eulerGilbert
+topBottomGilbert: topBottomGilbert.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) topBottomGilbert.cc unionFind.cc unionFind.hh -o topBottomGilbert
-topBottomUniform: topBottomUniform.cc unionFind.cc unionFind.hh
+topBottomUniform: topBottomUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) topBottomUniform.cc unionFind.cc unionFind.hh -o topBottomUniform
 
 clean:
