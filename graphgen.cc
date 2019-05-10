@@ -52,12 +52,11 @@ MATR genRandomGraph(int n, int m) {
     return graph;
 }
 
-MATR genErdos(int n, int m) {
+MATR borrarMaybe(int n, int m) {
     assert (m > (n * (n - 1)) / 2);
     MATR graph (n, vector<int>(n));
 
     for (int i = 0; i < n; i++) {
-        graph[n].resize(n, 0);
         graph[i][i] = -1;
     }
 
@@ -74,7 +73,7 @@ MATR genErdos(int n, int m) {
 }
 
 //Models:
-MATR gilbert (int n, float p) {
+MATR erdos (int n, float p) {
     MATR result (n, vector<int>(n));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
@@ -92,38 +91,6 @@ MATR gilbert (int n, float p) {
 }
 
 
-int calcul(int n, int m) {
-    int val = n * (n - 1) / 2;
-    int rest = val - m;
-    int parcial = 1;
-    while (val >= m) {
-        parcial *= val;
-        val = val - 1;
-    }
-    while (rest >= 1) {
-        parcial /= rest;
-    }
-    return parcial;
-}
-
-
-MATR erdos (int n, int m) {
-    MATR result (n, vector<int>(n));
-    double p = 1 / calcul(n, m);
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (not seBorra(p)) {
-                result[i][j] = true;
-                result[j][i] = true;
-            }
-            else {
-                result[i][j] = false;
-                result[j][i] = false;
-            }
-        }
-    }
-    return result;
-}
 
 
 
