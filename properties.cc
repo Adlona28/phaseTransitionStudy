@@ -87,3 +87,16 @@ int testEulerian(const MATR& graph, const vector<bool>& erased) {
 	if (odds == 2) return 1;
 	return 2;
 }
+
+bool testConnex(const MATR& graph, const vector<bool>& erased) {
+	vector<bool> even(graph.size(), false);
+	vector<bool> visited(graph.size(), false);
+	DFS(0, graph.size(), visited, even, erased, graph);
+	int odds = 0;
+	for (uint j = 0; j < graph.size(); j++) {
+		if (!visited[j] and !erased[j]) {
+			return false;
+		}
+	}
+	return true;
+}

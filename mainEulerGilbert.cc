@@ -16,7 +16,7 @@ int main() {
 	for (int g = 0; g < 100; ++g) {
 
 		for (int q = 0; q <= 1000; q = q + 1) {
-			MATR gilb = gilbert(n, (float)q/1000.0);
+			MATR gilb = gilbert(n, (float)q / 1000.0);
 			vector<bool> erased(n, false);
 			int res = testEulerian(gilb, erased);
 			if (res == 0) {
