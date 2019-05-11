@@ -13,18 +13,13 @@ int main() {
 	MATR resultatsEuleria(100, vector<int>(1001)); //Matriz de resultados (exito o no)
 	MATR resultatsSendero(100, vector<int>(1001)); //Matriz de resultados (exito o no)
 	//Generamos 100 grafos aleatorios con la probabilidad de Gilbert dada y, para cada uno, hacemos los test con diferentes probabilidades de percolacion.
-	cout << "prueba1" << endl;
 	for (int g = 0; g < 100; ++g) {
 
 		MATR uniform(n, vector<int>(n));
 		for (int q = 0; q <= 1000; q++) {
-			cout << "prueba2" << endl;
 			uniform = genRandomGraph(n, q);
-			cout << "prueba3" << endl;
 			vector<bool> erased(n, false);
-			cout << "prueba4" << endl;
 			int res = testEulerian(uniform, erased);
-			cout << "prueba5" << endl;
 			if (res == 0) {
 				resultatsEuleria[g][q] = 0;
 				resultatsSendero[g][q] = 0;
@@ -37,9 +32,7 @@ int main() {
 				resultatsEuleria[g][q] = 1;
 				resultatsSendero[g][q] = 1;
 			}
-			cout << "prueba6" << endl;
 		}
-		cout << "prueba7" << endl;
 	}
 	vector<float> mean(1000);
 
