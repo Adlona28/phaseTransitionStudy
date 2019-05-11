@@ -12,8 +12,7 @@ const uint MAX_WEIGHT = 100;
 
 //Undirected graphs generacion
 MATR genUniform() {
-    //int n = (rand() % MAX_NODES) + 50;
-    int n = 100;
+    int n = (rand() % MAX_NODES) + 50;
     MATR graph (n, vector<int>(n));
 
     for (int i = 0; i < n; i++) {
@@ -85,6 +84,39 @@ MATR erdos (int n, float p) {
                 result[i][j] = 0;
                 result[j][i] = 0;
             }
+        }
+    }
+    return result;
+}
+
+
+MATR cyclicGraph (int n) {
+    MATR result (n, vector<int>(n));
+    int mainNode = (rand() % n); //Node that generate the cycle
+	for (int i = 0; i < n; ++i)
+		result[i][i] = 1;
+	vector<bool> visited(n) = false;
+	visited[mainNode]=true;
+    int numCycle = (rand() % n); //Number of nodes that form the cycle
+	int oldN = mainNode;
+	int newN = (rand() % n);
+    for (int i = 0; i < numCycle-1; ++i) {
+		while (result[oldN][newN] or visited[newN]) newN = rand()%n;
+		result[oldN][newN]=1;
+		result[newN][oldN]=1;
+		visited[newN]=true;
+		oldN = newN;
+    }
+	resultat[newN][mainNode] = 1;
+	resultat[mainNode][newN] = 1;
+	int m = rand() % ((n * (n - 1)) / 2 + 1 - numCycle);
+    while (m > 0) {
+        int i = rand() % n;
+        int j = rand() % n;
+        if (i != j and result[i][j] == 0) {
+            result[i][j] = 1;
+            result[j][i] = 1;
+            --m;
         }
     }
     return result;
