@@ -4,18 +4,18 @@
 using namespace std;
 
 
-bool testTopBottom(const MATR& matrix, float q, bool node, const vector<int>& top, const vector<int>& bottom) {
+bool testTopBottom(const MATR& graph, float q, bool node, const vector<int>& top, const vector<int>& bottom) {
 	//Top Auxiliar=n, Bottom Auxiliar=n+1
-	int n = matrix.size();
+	int n = graph.size();
 	unionFind u(n + 2);
 	if (node) {
-		for (uint i = 0; i < matrix.size(); ++i) {
+		for (uint i = 0; i < graph.size(); ++i) {
 			if (seBorra(q)) u.delfind(i);
 		}
-		for (uint i = 0; i < matrix.size(); ++i) {
+		for (uint i = 0; i < graph.size(); ++i) {
 			if (u.find(i) != -1) {
-				for (uint j = i + 1; j < matrix.size(); ++j) {
-					if (u.find(j) != -1 and matrix[i][j])
+				for (uint j = i + 1; j < graph.size(); ++j) {
+					if (u.find(j) != -1 and graph[i][j])
 						u.unir(i, j);
 				}
 			}
@@ -30,9 +30,9 @@ bool testTopBottom(const MATR& matrix, float q, bool node, const vector<int>& to
 		}
 	}
 	else {
-		for (uint i = 0; i < matrix.size(); ++i) {
-			for (uint j = i + 1; j < matrix.size(); ++j) {
-				if (matrix[i][j] == 1 and not seBorra(q)) {
+		for (uint i = 0; i < graph.size(); ++i) {
+			for (uint j = i + 1; j < graph.size(); ++j) {
+				if (graph[i][j] == 1 and not seBorra(q)) {
 					u.unir(i, j);
 				}
 			}
@@ -99,4 +99,35 @@ bool testConnex(const MATR& graph, const vector<bool>& erased) {
 		}
 	}
 	return true;
+}
+
+bool testCycle(const MATR& graph, float q, bool node) {
+	int n = graph.size();
+	unionFind u(n);
+	if (node) {
+		for (uint i = 0; i < graph.size(); ++i) {
+			if (seBorra(q)) u.delfind(i);
+		}
+		for (uint i = 0; i < graph.size(); ++i) {
+			if (u.find(i) != -1) {
+				for (uint j = i + 1; j < graph.size(); ++j) {
+					if (u.find(j) != -1 and graph[i][j]) {
+						if (u.find(i) == u.find(j)) return true;
+						u.unir(i, j);
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (uint i = 0; i < graph.size(); ++i) {
+			for (uint j = i + 1; j < graph.size(); ++j) {
+				if (graph[i][j] == 1 and not seBorra(q)) {
+					if (u.find(i) == u.find(j)) return true;
+					u.unir(i, j);
+				}
+			}
+		}
+	}
+	return false;
 }

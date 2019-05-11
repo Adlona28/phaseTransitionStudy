@@ -47,13 +47,14 @@ int main() {
 			resultats[g][q] = (int) testTopBottom(uniform, (float)((float)q/(float)1000), node == 1, top, bottom);
 		}
 	}
-	vector<float> mean(1000);
+	vector<float> mean(1001);
 	for (int q = 0; q <= 1000; q = q+1) {
 		mean[q] = 0.;
 		for (int i = 0; i < 100; ++i) {
 			mean[q] += (float) resultats[i][q];
 		}
 		mean[q] = (float) mean[q] / 100;
-		cout << (float) q/1000 << ": " << mean[q] <<  endl;
+		printf("%.3f %.2f\n",(float)((float)1 -(float) q/1000),mean[q]);
+		//cout << (float) q/1000 << ": " << mean[q] <<  endl;
 	}
 }

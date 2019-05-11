@@ -54,7 +54,8 @@ int main() {
 			mean[q] += (float) resultatsEuleria[i][q];
 		}
 		mean[q] = (float) mean[q] / 100;
-		cout << (float) q / 1000 << ": " << mean[q] <<  "  ";
+		printf("%.3f %.2f\n",(float)((float)1 -(float) q/1000),mean[q]);
+		//cout << (float) q / 1000 << ": " << mean[q] <<  "  ";
 		if (q % 10 == 0) cout << endl;
 	}
 }
