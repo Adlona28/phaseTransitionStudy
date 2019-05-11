@@ -75,8 +75,9 @@ MATR borrarMaybe(int n, int m) {
 MATR erdos (int n, float p) {
     MATR result (n, vector<int>(n));
     for (int i = 0; i < n; ++i) {
-        for (int j = i+1; j < n; ++j) {
-            if (not seBorra((float)((float)1 - (float)p))) {
+        result[i][i] = -1;
+        for (int j = i + 1; j < n; ++j) {
+            if (seBorra(p)) {
                 result[i][j] = 1;
                 result[j][i] = 1;
             }

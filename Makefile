@@ -3,6 +3,10 @@ CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-v
 
 all: eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomNewman cyclesTest newmanCycles topBottomGraella
 
+connexUniform: mainConnexUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) mainConnexUniform.cc unionFind.cc unionFind.hh -o connexUniform
+connexErdos: mainConnexErdos.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) mainConnexErdos.cc unionFind.cc unionFind.hh -o connexErdos
 eulerUniform: mainEulerUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainEulerUniform.cc unionFind.cc unionFind.hh -o eulerUniform.out
 eulerErdos: mainEulerErdos.cc unionFind.cc unionFind.hh graphgen.cc properties.cc

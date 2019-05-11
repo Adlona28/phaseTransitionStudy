@@ -52,7 +52,7 @@ void DFS(int i, uint numVertices, vector<bool>& visited, vector<bool>& even, con
 		int connections = 0;
 		visited[i] = true;
 		for (uint j = 0; j < numVertices; j++) {
-			if (graph[i][j] == 1 and !erased[j]) {
+			if (i!=(int)j and graph[i][j] == 1 and !erased[j]) {
 				connections++;
 				if (!visited[j]) {
 					DFS(j, numVertices, visited, even, erased, graph);
@@ -60,6 +60,7 @@ void DFS(int i, uint numVertices, vector<bool>& visited, vector<bool>& even, con
 			}
 		}
 		if (connections == 0) {
+			visited[i] = false;
 			if (i + 1 < (int)numVertices)DFS(i + 1, numVertices, visited, even, erased, graph);
 			even[i] = true;
 		}
