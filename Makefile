@@ -1,7 +1,7 @@
 CC              = g++
 CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
 
-all: connexErdos connexUniform eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomNewman cyclesTest newmanCycles
+all: connexErdos connexUniform eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomNewman cyclesTest newmanCycles topBottomGraella
 
 connexUniform: mainConnexUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexUniform.cc unionFind.cc unionFind.hh -o connexUniform
@@ -17,11 +17,21 @@ topBottomUniform: topBottomUniform.cc unionFind.cc unionFind.hh graphgen.cc prop
 	$(CC) $(CFLAGS) topBottomUniform.cc unionFind.cc unionFind.hh -o topBottomUniform.out
 topBottomNewman: topBottomNewman.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) topBottomNewman.cc unionFind.cc unionFind.hh -o topBottomNewman.out
+topBottomGraella: topBottomGraella.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) topBottomGraella.cc unionFind.cc unionFind.hh -o topBottomGraella.out
 cyclesTest: cyclesTest.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) cyclesTest.cc unionFind.cc unionFind.hh -o cyclesTest.out
 newmanCycles: newmanCycles.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) newmanCycles.cc unionFind.cc unionFind.hh -o newmanCycles.out
 
 clean:
-	rm euler
-	rm topBottom
+	rm connexErdos 
+	rm connexUniform 
+	rm eulerErdos 
+	rm eulerUniform 
+	rm topBottomErdos 
+	rm topBottomUniform 
+	rm topBottomNewman 
+	rm cyclesTest 
+	rm newmanCycles 
+	rm topBottomGraella

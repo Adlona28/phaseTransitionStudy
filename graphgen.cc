@@ -144,7 +144,20 @@ MATR newman_watts_strogatzGraph (int n, int k, float p) {
     return result;
 }
 
-
+MATR genGraella(int n) {
+    MATR result (n*n, vector<int>(n*n));
+	for (int i = 0; i < n*n; ++i) {
+		if (i%n != n-1) {
+			result[i][i+1] = 1;
+			result[i+1][i] = 1;
+		}
+		if (i+n < n*n) {
+			result[i][i+n] = 1;
+			result[i+n][i] = 1;
+		}
+	}
+    return result;
+}
 
 /*
 Sources:
