@@ -1,8 +1,10 @@
 CC              = g++
 CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
 
-all: connexWatts connexErdos connexUniform eulerWatts eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomWatts cyclesTest wattsCycles
+all: graella connexWatts connexErdos connexUniform eulerWatts eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomWatts cyclesTest wattsCycles
 
+graella: graella.cc
+	$(CC) $(CFLAGS) graella.cc -o graella
 connexWatts: mainConnexWatts.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexWatts.cc unionFind.cc unionFind.hh -o connexWatts
 connexUniform: mainConnexUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
@@ -27,6 +29,7 @@ wattsCycles: wattsCycles.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) wattsCycles.cc unionFind.cc unionFind.hh -o wattsCycles
 
 clean:
+	rm graella
 	rm connexWatts 
 	rm connexErdos 
 	rm connexUniform 
