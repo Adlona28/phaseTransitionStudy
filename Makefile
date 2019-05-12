@@ -1,7 +1,7 @@
 CC              = g++
 CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
 
-all: eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomNewman cyclesTest newmanCycles
+all: connexErdos connexUniform eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomNewman cyclesTest newmanCycles
 
 connexUniform: mainConnexUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexUniform.cc unionFind.cc unionFind.hh -o connexUniform
