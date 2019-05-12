@@ -1,16 +1,16 @@
 CC              = g++
 CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
 
-all: connexNewman connexErdos connexUniform eulerNewman eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomNewman cyclesTest newmanCycles topBottomGraella
+all: connexWatts connexErdos connexUniform eulerWatts eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomWatts cyclesTest wattsCycles
 
-connexNewman: mainConnexNewman.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) mainConnexNewman.cc unionFind.cc unionFind.hh -o connexNewman
+connexWatts: mainConnexWatts.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) mainConnexWatts.cc unionFind.cc unionFind.hh -o connexWatts
 connexUniform: mainConnexUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexUniform.cc unionFind.cc unionFind.hh -o connexUniform
 connexErdos: mainConnexErdos.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexErdos.cc unionFind.cc unionFind.hh -o connexErdos
-eulerNewman: mainEulerNewman.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) mainEulerNewman.cc unionFind.cc unionFind.hh -o eulerNewman
+eulerWatts: mainEulerWatts.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) mainEulerWatts.cc unionFind.cc unionFind.hh -o eulerWatts
 eulerUniform: mainEulerUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainEulerUniform.cc unionFind.cc unionFind.hh -o eulerUniform
 eulerErdos: mainEulerErdos.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
@@ -19,25 +19,23 @@ topBottomErdos: topBottomErdos.cc unionFind.cc unionFind.hh graphgen.cc properti
 	$(CC) $(CFLAGS) topBottomErdos.cc unionFind.cc unionFind.hh -o topBottomErdos
 topBottomUniform: topBottomUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) topBottomUniform.cc unionFind.cc unionFind.hh -o topBottomUniform
-topBottomNewman: topBottomNewman.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) topBottomNewman.cc unionFind.cc unionFind.hh -o topBottomNewman
-topBottomGraella: topBottomGraella.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) topBottomGraella.cc unionFind.cc unionFind.hh -o topBottomGraella
+topBottomWatts: topBottomWatts.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) topBottomWatts.cc unionFind.cc unionFind.hh -o topBottomWatts
 cyclesTest: cyclesTest.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) cyclesTest.cc unionFind.cc unionFind.hh -o cyclesTest
-newmanCycles: newmanCycles.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) newmanCycles.cc unionFind.cc unionFind.hh -o newmanCycles
+wattsCycles: wattsCycles.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
+	$(CC) $(CFLAGS) wattsCycles.cc unionFind.cc unionFind.hh -o wattsCycles
 
 clean:
-	rm connexNewman 
+	rm connexWatts 
 	rm connexErdos 
 	rm connexUniform 
-	rm eulerNewman 
+	rm eulerWatts 
 	rm eulerErdos 
 	rm eulerUniform 
 	rm topBottomErdos 
 	rm topBottomUniform 
-	rm topBottomNewman 
+	rm topBottomWatts 
 	rm cyclesTest 
-	rm newmanCycles 
+	rm wattsCycles 
 	rm topBottomGraella

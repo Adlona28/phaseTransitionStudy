@@ -15,11 +15,23 @@ int main() {
 	for (int g = 0; g < 100; ++g) {
 		MATR watts = watts_strogatzGraph(100,5,0.5);
 		int n = watts.size();
+		// Top y bottom necesariamente separados
+		vector<int> top;
+		top.push_back(0);
+		vector<int> bottom;
+		for (int i = 1; i < n/20; i++) {
+			top.push_back(i);
+		}
+		for (int i = n/2; i < n/2+n/20; i++) {
+			bottom.push_back(i);
+		}
+		//Top bottom normal
+		/*
 		vector<int> top;
 		top.push_back(0);
 		int count = 1;
 		vector<int> bottom;
-		for (int i = 0; i < n and count < n/20; i++) {
+		for (int i = 0; i < n and count < n/10; i++) {
 			if (watts[top[0]][i]) {
 				top.push_back(i);
 				count++;
@@ -33,12 +45,13 @@ int main() {
 			else bottom.push_back(n/4);
 		}
 		count = bottom.size();
-		for (int i = 0; i < n and count < n/20; i++) {
+		for (int i = 0; i < n and count < n/10; i++) {
 			if (watts[bottom[0]][i] and not watts[top[0]][i] and i != top[0]) {
 				bottom.push_back(i);
 				count++;
 			}
 		}
+		*/
 		//for (int i = 0; i < top.size(); ++i) cout << top[i] << " ";
 		//cout << endl;
 		//for (int i = 0; i < bottom.size(); ++i) cout << bottom[i] << " ";
