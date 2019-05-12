@@ -38,4 +38,3 @@ clean:
 	rm topBottomWatts 
 	rm cyclesTest 
 	rm wattsCycles 
-	rm topBottomGraella
