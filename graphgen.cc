@@ -117,7 +117,7 @@ MATR cyclicGraph () {
     return result;
 }
 
-MATR newman_watts_strogatzGraph (int n, int k, float p) {
+MATR watts_strogatzGraph (int n, int k, float p) {
 	assert (k<n);
     MATR result (n, vector<int>(n));
 	for (int i = 0; i < n; ++i) {
