@@ -1,0 +1,21 @@
+-para compilar se puede utilizar el Makefile, los objetivos/ejecutables del mismo son los siguientes:
+
+-topBottomErdos: ./topBottomErdos para ejecutar pide el total de vértices, la probabilidad del modelo y el tipo de percolación. El resultado es la probabilidad de que se cumpla la propiedad top and bottom para cada valor de q.
+
+-topBottomUniform: ./topBottomUniform para ejecutar. El resultado es la probabilidad de que se cumpla la propiedad top and bottom para cada valor de q.
+
+-topBottomWatts: ./topBottomWatts para ejecutar. Pide el tipo de percolación. El resultado es la probabilidad de que se cumpla la propiedad top and bottom para cada valor de q.
+
+-cyclesTest: ./cyclesTest para ejcutar. Pide el tipo de percolación. El resultado es la probabilidad de que se cumpla la propiedad de tener algún ciclo para cada valor de q
+
+-wattsCycle: ./wattsCycle para ejecutar. Pide el número de vecinos que queremos asignar y el tipo de percolación. El resultado es la probabilidad de que se cumpla la propiedad de tener algún ciclo para cada valor de q.
+
+-connexErdos: ./connexErdos para ejecutar. Pide el total de nodos. El resultado es la probabilidad de que el grafo sea conexo para cada p.
+
+-connexUniform: ./connexUniform para ejecutar. Pide el total de nodos. El resultado es la probabilidad de que el grafo sea conexo para el numero de aristas dado.
+
+-eulerUniform: ./eulerErdos para ejecutar. Pide el total de nodos. Los resultado es la probabilidad de que el grafo tenga un camino Euleriano y sea Euleriano para cada p.
+
+-eulerErdos: ./connexUniform para ejecutar. Pide el total de nodos. El resultado es la probabilidad de que el grafo tenga un camino Euleriano y sea Euleriano para el numero de aristas dado.
+
+-graella: ./graella para ejecutar

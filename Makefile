@@ -1,18 +1,14 @@
 CC              = g++
 CFLAGS          = -O3          -std=c++11 -Wall -Wno-unused-result -Wno-unused-variable
 
-all: graella connexWatts connexErdos connexUniform eulerWatts eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomWatts cyclesTest wattsCycles
+all: graella connexErdos connexUniform eulerWatts eulerErdos eulerUniform topBottomErdos topBottomUniform topBottomWatts cyclesTest wattsCycles
 
 graella: graella.cc
 	$(CC) $(CFLAGS) graella.cc -o graella
-connexWatts: mainConnexWatts.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) mainConnexWatts.cc unionFind.cc unionFind.hh -o connexWatts
 connexUniform: mainConnexUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexUniform.cc unionFind.cc unionFind.hh -o connexUniform
 connexErdos: mainConnexErdos.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainConnexErdos.cc unionFind.cc unionFind.hh -o connexErdos
-eulerWatts: mainEulerWatts.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
-	$(CC) $(CFLAGS) mainEulerWatts.cc unionFind.cc unionFind.hh -o eulerWatts
 eulerUniform: mainEulerUniform.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 	$(CC) $(CFLAGS) mainEulerUniform.cc unionFind.cc unionFind.hh -o eulerUniform
 eulerErdos: mainEulerErdos.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
@@ -30,10 +26,8 @@ wattsCycles: wattsCycles.cc unionFind.cc unionFind.hh graphgen.cc properties.cc
 
 clean:
 	rm graella
-	rm connexWatts 
 	rm connexErdos 
 	rm connexUniform 
-	rm eulerWatts 
 	rm eulerErdos 
 	rm eulerUniform 
 	rm topBottomErdos 
