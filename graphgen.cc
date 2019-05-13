@@ -51,7 +51,7 @@ MATR genRandomGraph(int n, int m) {
     return graph;
 }
 
-MATR borrarMaybe(int n, int m) {
+MATR modeloAleatorio1(int n, int m) {
     assert (m > (n * (n - 1)) / 2);
     MATR graph (n, vector<int>(n));
 
@@ -117,7 +117,7 @@ MATR cyclicGraph () {
     return result;
 }
 
-MATR newman_watts_strogatzGraph (int n, int k, float p) {
+MATR watts_strogatzGraph (int n, int k, float p) {
 	assert (k<n);
     MATR result (n, vector<int>(n));
 	for (int i = 0; i < n; ++i) {
@@ -145,25 +145,3 @@ MATR newman_watts_strogatzGraph (int n, int k, float p) {
 	}
     return result;
 }
-
-MATR genGraella(int n) {
-    MATR result (n*n, vector<int>(n*n));
-	for (int i = 0; i < n*n; ++i) {
-		if (i%n != n-1) {
-			result[i][i+1] = 1;
-			result[i+1][i] = 1;
-		}
-		if (i+n < n*n) {
-			result[i][i+n] = 1;
-			result[i+n][i] = 1;
-		}
-	}
-    return result;
-}
-
-/*
-Sources:
-https://www.quora.com/How-could-a-random-graph-e-g-Erdos-Renyi-graphs-be-implemented-in-the-C-language-no-C-and-C++
-https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
-https://en.wikipedia.org/wiki/Random_graph
-*/

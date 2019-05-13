@@ -2,6 +2,8 @@
 #include <vector>
 #include <utility>
 #include <stdlib.h>
+#include <ctime>
+#include <iomanip>
 using namespace std;
 
 
@@ -24,30 +26,28 @@ bool seBorra(){
 
 int find(struct subset subsets[], int i) 
 { 
-    // find root and make root as parent of i (path compression) 
+    // encuentra la raíz y hazla padre de i (path compression)
     if (subsets[i].parent != i) 
         subsets[i].parent = find(subsets, subsets[i].parent); 
   
     return subsets[i].parent; 
 } 
   
-// A function that does union of two sets of x and y 
-// (uses union by rank) 
-//https://www.geeksforgeeks.org/union-find-algorithm-set-2-union-by-rank/
+// Una función que une dos sets x y y
+// por union by rank
 void Union(struct subset subsets[], int x, int y) 
 { 
     int xroot = find(subsets, x); 
     int yroot = find(subsets, y); 
   
-    // Attach smaller rank tree under root of high rank tree 
-    // (Union by Rank) 
+    //Junta el rango del arbol pequeño debajo de la raiz del arbol grande
+    //Union by rank
     if (subsets[xroot].rank < subsets[yroot].rank) 
         subsets[xroot].parent = yroot; 
     else if (subsets[xroot].rank > subsets[yroot].rank) 
         subsets[yroot].parent = xroot; 
-  
-    // If ranks are same, then make one as root and increment 
-    // its rank by one 
+
+    //Si los rangos son iguales, entonces marca uno como raíz e incremeta su rango por uno
     else
     { 
         subsets[yroot].parent = xroot; 
@@ -56,12 +56,12 @@ void Union(struct subset subsets[], int x, int y)
 }
 
 
-bool percolarVertices(float prob) {
+bool percolarVertices(float prob,int N) {
 	//q=probabilidad de abrir un nodo
 	q=prob;
 	q=1-q; //1-q de cerrarlo
 
-	int N=1000; //tiene que ser suficientemente larga para que de el valor del pdf
+	//int N=1000; //tiene que ser suficientemente larga para que de el valor del pdf
 
 	 // Allocate memory for creating V sets
 	int V=N*N+2;
@@ -112,13 +112,13 @@ bool percolarVertices(float prob) {
 
    	//comienza la percolación de lo que queda de tablero sin contar la fila inicial y la última
 
-   	bool percola=false;
+   	//bool percola=false;
 
 
    	for(int i=N;i<(N*N)-N;++i){
    		if(find(subsets,V-1)==find(subsets,V-2)){
-   			cout << "Percola para " << 1-q << endl;
-   			percola=true;
+   			//cout << "Percola para " << 1-q << endl;
+   			//percola=true;
    			return true;
    			break;
    		}
@@ -153,18 +153,16 @@ bool percolarVertices(float prob) {
    	}
 
 
-   	if(!percola) cout << "No percola para " << 1-q << endl;
+   	//if(!percola) cout << "No percola para " << 1-q << endl;
    	return false;
 }
 
 
 
-bool percolarAristas(float prob) {
+bool percolarAristas(float prob, int N) {
 	//q=probabilidad de abrir un nodo
 	q=prob;
 	q=1-q; //1-q de cerrarlo
-
-	int N=1000;
 
 	 // Allocate memory for creating V sets
 	int V=N*N+2;
@@ -212,13 +210,13 @@ bool percolarAristas(float prob) {
 
    	//comienza la percolación de lo que queda de tablero sin contar la fila inicial y la última
 
-   	bool percola=false;
+   	//bool percola=false;
 
    	//ahora recorro todos
    	for(int i=0;i<(N*N);++i){
    		if(find(subsets,V-1)==find(subsets,V-2)){
-   			cout << "Percola para " << 1-q << endl;
-   			percola=true;
+   			//cout << "Percola para " << 1-q << endl;
+   			//percola=true;
    			return true;
    			break;
    		}
@@ -240,29 +238,29 @@ bool percolarAristas(float prob) {
    	}
 
 
-   	if(!percola) cout << "No percola para " << 1-q << endl;
+   	//if(!percola) cout << "No percola para " << 1-q << endl;
    	return false;
 }
 
 
 
-void mainVertices(){
+void mainVertices(int N){
 	float q = 0;
 	while(q<=1){
 		q+=0.1;
-		if(percolarVertices(q)){
+		if(percolarVertices(q,N)){
 			float qnext=q;
 			q-=0.1;
 			while(q<qnext){
 				q+=0.01;
-				if(percolarVertices(q)){
+				if(percolarVertices(q,N)){
 					float qnext2=q;
 					q-=0.01;
 					while(q<qnext2){
 						q+=0.001;
-						if(percolarVertices(q)){
+						if(percolarVertices(q,N)){
 							cout << "Valor de transcision de fase por percolacion vertices " << q << endl;
-							exit(0);
+              return;
 						}
 					}
 				}
@@ -271,21 +269,21 @@ void mainVertices(){
 	}
 }
 
-void mainAristas(){
+void mainAristas(int N){
 	float q = 0;
 	while(q<=1){
 		q+=0.1;
-		if(percolarAristas(q)){
+		if(percolarAristas(q,N)){
 			float qnext=q;
 			q-=0.1;
 			while(q<qnext){
 				q+=0.01;
-				if(percolarAristas(q)){
+				if(percolarAristas(q,N)){
 					float qnext2=q;
 					q-=0.01;
 					while(q<qnext2){
 						q+=0.001;
-						if(percolarAristas(q)){
+						if(percolarAristas(q,N)){
 							cout << "Valor de transcision de fase por percolacion aristas " << q << endl;
 							exit(0);
 						}
@@ -296,23 +294,22 @@ void mainAristas(){
 	}
 }
 
-void monteCarloVertices() {
-
-	int N=1000; //tiene que ser suficientemente larga para que de el valor del pdf
+void monteCarloVertices(int N) { //tiene que ser suficientemente larga para que de el valor del pdf
 
 	 // Allocate memory for creating V sets
 	int V=N*N+2;
-    struct subset *subsets = (struct subset*) malloc(V* sizeof(struct subset) );
+  struct subset *subsets = (struct subset*) malloc(V* sizeof(struct subset) );
 
-    int k = 0;
+  int k = 0;
 
+  //inicialización estructura subsets de Union-Find
 	for(int i=0; i<N;++i){
 		for(int j=0;j<N;++j){
-    		//inicialización estructura subsets de Union-Find
     		subsets[k].parent = k;
     		subsets[k].rank = 0;
     		subsets[k].posGraella=make_pair(i,j);
     		subsets[k].abierto=false; //al principio todos los nodos cerrados
+
 
     		++k;
 		}
@@ -391,12 +388,78 @@ void monteCarloVertices() {
 	   			
 	   		}
    	}
-   	cout<< abiertos << endl;
    	float valor = (float)abiertos / (float)size;
-   	cout << "Percola para " << valor << endl;
+   	cout << "La propiedad se cumple para el valor " << valor << endl;
 
 }
 
+
+
+/**
+Experimento tiempo de ejecución y valores MonteCarlo
+*/
 int main(){
-	mainAristas();
+  for(int i = 100; i<=1500; i+=100){
+    cout << "Tamaño " << i << endl;
+    clock_t startTime;
+    float medidas=0;
+    for(int j = 0; j<4;++j){
+      startTime = clock();
+    	monteCarloVertices(i);
+      medidas+=float(clock()-startTime)/CLOCKS_PER_SEC;
+    }
+    cout << "Media de tiempo de 4 ejecuciones " << medidas/4.0 << endl;
+  }
 }
+
+
+/**
+Experimento valores percolación Vertices
+int main(){
+  for(int i = 100; i <= 1500; i+=100){
+    cout << "Tamaño " << i << endl;
+    clock_t startTime;
+    startTime = clock();
+    mainVertices(i);
+    cout << (float(clock()-startTime)/CLOCKS_PER_SEC)*1000.0 << endl;
+  }
+}
+*/
+
+/*
+Experimento version 2 para encontrar la transcisión de fase
+con un pequeño arreglo para mejorar eficiencia
+int main(){
+
+  cout << fixed;
+  cout << setprecision(3);
+
+  float aux = 0;
+  while(aux<0.500){
+    cout << aux << " " << "0.000" << endl;
+    aux+=0.001;
+  }
+  int si = 0;
+  float i = 0.500;
+  while(i<0.650){
+    for(int j=0; j<100;++j){
+      if(percolarAristas(i,100)) ++si;
+    }
+    cout << float(i) << " " << float(si)/100.0 << endl;
+    i+=0.001;
+    si=0;
+  }
+
+  aux=0.651;
+  while(aux<1){
+     cout << aux << " " << "1.000" << endl;
+     aux+=0.001;
+  }
+}
+*/
+
+
+/**
+Sources
+//https://www.geeksforgeeks.org/union-find-algorithm-set-2-union-by-rank/
+*/
