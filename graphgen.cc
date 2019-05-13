@@ -121,11 +121,13 @@ MATR newman_watts_strogatzGraph (int n, int k, float p) {
 	assert (k<n);
     MATR result (n, vector<int>(n));
 	for (int i = 0; i < n; ++i) {
-		int j = i;
+        result[i][i] = -1;
+		int j = i+1;
 		for (int t = 0; t <= k; ++t) {  //Connecting with k-neighbours
 			result[i][j%n] = 1;
 			result[j%n][i] = 1;
 			++j;
+            if(j==i) ++j;
 		}
 	}
 	for (int i = 0; i < n; ++i) {

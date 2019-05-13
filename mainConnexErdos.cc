@@ -15,7 +15,7 @@ void printMatr(MATR& prueba) {
 	vector<bool> erased(10, false);
 }
 int main() {
-	cout << "Dime el número de vertices que quieres" << endl;
+	//cout << "Dime el número de vertices que quieres" << endl;
 	int n;
 	cin >> n;
 	MATR resultats(100, vector<int>(1001)); //Matriz de resultados (exito o no)
@@ -44,7 +44,7 @@ int main() {
 			mean[q] += (float) resultats[i][q];
 		}
 		mean[q] = (float) mean[q] / 100;
-		cout << (float) q / 1000 << ": " << mean[q] <<  "  ";
-		if (q % 10 == 0) cout << endl;
+		cout << (float) q / 1000 << ", " << mean[q] <<  endl;
+		//if (q % 10 == 0) cout << endl;
 	}
 }

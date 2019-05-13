@@ -15,10 +15,10 @@ void printMatr(MATR& prueba) {
 	vector<bool> erased(10, false);
 }
 int main() {
-	cout << "Dime el número de vertices que quieres" << endl;
+	//cout << "Dime el número de vertices que quieres" << endl;
 	int n;
 	cin >> n;
-	cout << "Percolacion de nodos (1) o aristas (0)" << endl;
+	//cout << "Percolacion de nodos (1) o aristas (0)" << endl;
 	int nodos;
 	cin >> nodos;
 	MATR resultats(n, vector<int>(1001)); //Matriz de resultados (exito o no)
@@ -40,16 +40,15 @@ int main() {
 			if (!nodos)  desPercolacionAristas(newman);
 		}
 	}
-	vector<float> mean(1000);
+	vector<float> mean(n);
 
-	for (int q = 0; q <= 1000; q = q + 1) {
+	for (int q = 0; q < n; q = q + 1) {
 		mean[q] = 0.;
 
-		for (int i = 0; i < n; ++i) {
-			mean[q] += (float) resultats[i][q];
+		for (int i = 0; i < 1001; ++i) {
+			mean[q] += (float) resultats[q][i];
 		}
-		mean[q] = (float) mean[q] / n;
-		cout << (float) q / 1000 << ": " << mean[q] <<  "  ";
-		if (q % 10 == 0) cout << endl;
+		mean[q] = (float) mean[q] / 1001;
+		cout << q << ", " << mean[q] <<  endl;
 	}
 }
